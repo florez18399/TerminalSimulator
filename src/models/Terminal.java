@@ -1,10 +1,7 @@
 package models;
 
 import java.util.ArrayList;
-
-import persistence.FileManager;
 import persistence.FilesTerminal;
-import persistence.OpenForm;
 
 public class Terminal {
 	private String name;
@@ -17,9 +14,11 @@ public class Terminal {
 		filesTerminal = new FilesTerminal();
 		loadQueueBuses();
 		loadTicketOffices();
+		showTicketOffices();
 	}
 
-	public void loadQueueBuses() {
+	public void loadTicketOffices() {
+		listTicketOffice = new MyLinkedList<TicketOffice>(new LockersComparator());
 		ArrayList<String> listDestinations = filesTerminal.getListDestinations();
 		for (String destination : listDestinations) {
 			createTicketOffice(destination);
@@ -33,7 +32,28 @@ public class Terminal {
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
 	}
 
-	public void loadTicketOffices() {
+	public void showTicketOffices() {
+		listTicketOffice.showList();
+	}
+
+	public void loadQueueBuses() {
+		queueTotalBuses = new MyQueue<Bus>();
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public MyLinkedList<TicketOffice> getListTicketOffice() {
+		return listTicketOffice;
+	}
+
+	public MyQueue<Bus> getQueueTotalBuses() {
+		return queueTotalBuses;
 	}
 
 }

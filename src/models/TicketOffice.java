@@ -35,4 +35,9 @@ public class TicketOffice {
 		this.usersServed = usersServed;
 	}
 
+	@Override
+	public String toString() {
+		return "Taquilla: " + destiny.getName();
+	}
+	
 }
