@@ -12,7 +12,6 @@ public class Terminal {
 	}
 
 	public void loadQueueBuses() {
-		
 	}
 	
 	public void loadTicketOffice() {
