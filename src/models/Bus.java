@@ -1,7 +1,5 @@
 package models;
 
-import java.util.LinkedList;
-
 public class Bus {
 	private String license;
 	private TypeBus typeBus;
@@ -11,7 +9,7 @@ public class Bus {
 	public Bus(String license, TypeBus typeBus) {
 		this.license = license;
 		this.typeBus = typeBus;
-		listPassengers= new MyLinkedList<>();
+		listPassengers = new MyLinkedList<>(new ComparatorPassengers());
 		statusBus = StatusBus.WAITING;
 	}
 
