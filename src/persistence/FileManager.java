@@ -42,7 +42,7 @@ public class FileManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void close() {
 		try {
 			switch (this.openForm) {
@@ -64,6 +64,30 @@ public class FileManager {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void write(String cad) {
+		if (this.openForm == OpenForm.WRITE || this.openForm == OpenForm.APPEND) {
+			try {
+				bufferedWriter.write(cad);
+				bufferedWriter.newLine();
+			} catch (IOException e) {
+				System.out.println("Error al escribir");
+			}
+		}
+	}
+
+	public String read() {
+		String cad = "";
+		try {
+			if (this.openForm == OpenForm.READ) {
+				cad = bufferedReader.readLine();
+			}
+
+		} catch (IOException e) {
+			System.out.println("Error al leer");
+		}
+		return cad;
 	}
 
 	public void setOpenForm(OpenForm openFor) {
