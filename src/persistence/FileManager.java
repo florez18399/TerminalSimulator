@@ -42,6 +42,29 @@ public class FileManager {
 			e.printStackTrace();
 		}
 	}
+	
+	public void close() {
+		try {
+			switch (this.openForm) {
+			case WRITE:
+				bufferedWriter.close();
+				fileWriter.close();
+				break;
+			case APPEND:
+				bufferedWriter.close();
+				fileWriter.close();
+				break;
+			case READ:
+				bufferedReader.close();
+				fileReader.close();
+				break;
+			default:
+				break;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setOpenForm(OpenForm openFor) {
 		this.openForm = openFor;
