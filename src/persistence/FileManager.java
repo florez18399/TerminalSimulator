@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class FileManager {
 	private File file;
@@ -17,6 +18,7 @@ public class FileManager {
 
 	public FileManager(String nameFile, OpenForm openForm) {
 		file = new File(nameFile);
+		System.out.println(file);
 		this.openForm = openForm;
 	}
 
@@ -72,7 +74,7 @@ public class FileManager {
 				bufferedWriter.write(cad);
 				bufferedWriter.newLine();
 			} catch (IOException e) {
-				System.out.println("Error al escribir");
+				e.printStackTrace();
 			}
 		}
 	}
@@ -80,18 +82,26 @@ public class FileManager {
 	public String read() {
 		String cad = "";
 		try {
-			if (this.openForm == OpenForm.READ) {
+			if (this.openForm == OpenForm.READ)
 				cad = bufferedReader.readLine();
-			}
-
 		} catch (IOException e) {
-			System.out.println("Error al leer");
+			e.printStackTrace();
 		}
 		return cad;
 	}
 
 	public void setOpenForm(OpenForm openFor) {
 		this.openForm = openFor;
+	}
+
+	public ArrayList<String> createArray() {
+		ArrayList<String> arrayList = new ArrayList<String>();
+		String line = read();
+		while (line != null) {
+			arrayList.add(line);
+			line = read();
+		}
+		return arrayList;
 	}
 
 }
