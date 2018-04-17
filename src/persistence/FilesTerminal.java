@@ -10,7 +10,15 @@ public class FilesTerminal {
 	}
 
 	public ArrayList<String> getListDestinations() {
-		FileManager fileManager = new FileManager(PATH_FILE_DESTINATIONS, OpenForm.READ);
+		return getListFromFile(PATH_FILE_DESTINATIONS);
+	}
+
+	public ArrayList<String> getListBuses() {
+		return getListFromFile(PATH_FILE_BUSES);
+	}
+
+	private ArrayList<String> getListFromFile(String pathFile) {
+		FileManager fileManager = new FileManager(pathFile, OpenForm.READ);
 		fileManager.open();
 		ArrayList<String> list = fileManager.createArray();
 		fileManager.close();
