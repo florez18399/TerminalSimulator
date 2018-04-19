@@ -1,11 +1,6 @@
 package models;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.Timer;
-
 import persistence.FilesTerminal;
 
 public class Terminal {
@@ -13,15 +8,15 @@ public class Terminal {
 	private MyLinkedList<TicketOffice> listTicketOffice;
 	private MyQueue<Bus> queueTotalBuses;
 	private FilesTerminal filesTerminal;
-	private int speed;
 	private Concurrence concurrence;
+	private MyQueue<Passenger> incoming;
 
 	public Terminal(String name) {
 		this.name = name;
 		filesTerminal = new FilesTerminal();
+		incoming = new MyQueue<Passenger>();
 		loadQueueBuses();
 		loadTicketOffices();
-		showTicketOffices();
 	}
 
 	public void loadTicketOffices() {
@@ -40,24 +35,22 @@ public class Terminal {
 	}
 
 	public void createPassengers() {
-		switch (concurrence) {
-		case HIGH:
-			System.out.println("Crea 15 personas");
-			break;
-		case MEDIUM:
-			System.out.println("Crea 10 personas");
-			break;
-		case LOW:
-			System.out.println("Crea 5 personas");
-			break;
+		createPassengers(concurrence.getMax());
+	}
 
-		default:
-			break;
+	private void createPassengers(int max) {
+		int created = (int) (Math.random() * max);
+		int i = 0;
+		while (i < created) {
+			incoming.enqueue(new Node<Passenger>(createPassenger()));
+			i++;
 		}
 	}
 
-	public void showTicketOffices() {
-		listTicketOffice.showList();
+	private Passenger createPassenger() {
+		int idDestiny = ((int) (Math.random() * listTicketOffice.size()));
+		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny());
+		return passenger;
 	}
 
 	public void loadQueueBuses() {
@@ -79,14 +72,6 @@ public class Terminal {
 
 	public MyQueue<Bus> getQueueTotalBuses() {
 		return queueTotalBuses;
-	}
-
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 
 	public Concurrence getConcurrence() {

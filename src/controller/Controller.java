@@ -28,7 +28,7 @@ public class Controller implements ActionListener {
 
 	public void initComponents() {
 		terminal = new Terminal("Terminal de Paipa :v");
-		frameMain = new JFrameMain();
+		frameMain = new JFrameMain(terminal);
 	}
 
 	@Override
@@ -41,9 +41,18 @@ public class Controller implements ActionListener {
 		case STOP_SIMULATION:
 			stopSimulation();
 			break;
+			
+		case GENERATE_REPORT: 
+			generateReport();
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void generateReport() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private void initSimulation() {
