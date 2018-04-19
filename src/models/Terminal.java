@@ -1,6 +1,11 @@
 package models;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.Timer;
+
 import persistence.FilesTerminal;
 
 public class Terminal {
@@ -8,6 +13,8 @@ public class Terminal {
 	private MyLinkedList<TicketOffice> listTicketOffice;
 	private MyQueue<Bus> queueTotalBuses;
 	private FilesTerminal filesTerminal;
+	private int speed;
+	private Concurrence concurrence;
 
 	public Terminal(String name) {
 		this.name = name;
@@ -32,11 +39,29 @@ public class Terminal {
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
 	}
 
+	public void createPassengers() {
+		switch (concurrence) {
+		case HIGH:
+			System.out.println("Crea 15 personas");
+			break;
+		case MEDIUM:
+			System.out.println("Crea 10 personas");
+			break;
+		case LOW:
+			System.out.println("Crea 5 personas");
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	public void showTicketOffices() {
 		listTicketOffice.showList();
 	}
 
 	public void loadQueueBuses() {
+		System.out.println("Leer archivo de buses");
 		queueTotalBuses = new MyQueue<Bus>();
 	}
 
@@ -54,6 +79,22 @@ public class Terminal {
 
 	public MyQueue<Bus> getQueueTotalBuses() {
 		return queueTotalBuses;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public Concurrence getConcurrence() {
+		return concurrence;
+	}
+
+	public void setConcurrence(Concurrence concurrence) {
+		this.concurrence = concurrence;
 	}
 
 }

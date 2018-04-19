@@ -1,9 +1,9 @@
 package controller;
 
 public enum Commands {
-	INIT_SIMULATION("INIT_SIMULATION", "Iniciar la simulación", "Inicia la simulación", ""), 
-	STOP_SIMULATION("STOP_SIMULATION", "Parar la simulación", "Para la simualación", ""), 
-	GENERATE_REPORT("GENERATE_REPORT", "Generar reporte", "Genera reporte", ""), 
+	INIT_SIMULATION("INIT_SIMULATION", "Iniciar la simulación", "Inicia la simulación", "/images/playIcon.png"), 
+	STOP_SIMULATION("STOP_SIMULATION", "Parar la simulación", "Para la simualación", "/images/stopIcon.png"), 
+	GENERATE_REPORT("GENERATE_REPORT", "Generar reporte", "Genera reporte", "/images/reportIcon.png"), 
 	CHANGE_SPEED("CHANGE_SPEED", "Cambiar velocidad", "Cambia la velocidad de simulación", "");
 
 	private String command;

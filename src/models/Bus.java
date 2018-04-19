@@ -5,12 +5,17 @@ public class Bus {
 	private TypeBus typeBus;
 	private MyLinkedList<Passenger> listPassengers;
 	private StatusBus statusBus;
+	private Position position;
 
 	public Bus(String license, TypeBus typeBus) {
 		this.license = license;
 		this.typeBus = typeBus;
 		listPassengers = new MyLinkedList<>(new ComparatorPassengers());
 		statusBus = StatusBus.WAITING;
+	}
+	
+	public void moveBus() {
+		position.setX(position.getX() + typeBus.getSpeed()/100);
 	}
 
 	public String getLicense() {
@@ -43,6 +48,14 @@ public class Bus {
 
 	public void setStatusBus(StatusBus statusBus) {
 		this.statusBus = statusBus;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 }
