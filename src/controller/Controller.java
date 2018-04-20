@@ -76,6 +76,7 @@ public class Controller implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				terminal.atendAllTickets();
+				terminal.verifyBusesTickets();
 				frameMain.repaint();
 			}
 		});

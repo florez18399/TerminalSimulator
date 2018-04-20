@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+
+import controller.Commands;
 import persistence.FilesTerminal;
 
 public class Terminal {
@@ -25,7 +27,7 @@ public class Terminal {
 		listTicketOffice = new MyLinkedList<TicketOffice>(new LockersComparator());
 		ArrayList<String> listDestinations = filesTerminal.getListDestinations();
 		for (String destination : listDestinations) {
-			createTicketOffice(destination);
+			createTicketOffice(destination, listDestinations.indexOf(destination) + 1);
 		}
 	}
 
@@ -34,16 +36,18 @@ public class Terminal {
 		queueTotalBuses = new MyQueue<Bus>();
 	}
 
-	private void createTicketOffice(String destination) {
+	private void createTicketOffice(String destination, int numerOffice) {
 		String vecDestiny[] = destination.split("/");
 		Destiny destiny = new Destiny(vecDestiny[0], Integer.parseInt(vecDestiny[1]), Integer.parseInt(vecDestiny[2]));
-		TicketOffice ticketOffice = new TicketOffice(destiny);
+		TicketOffice ticketOffice = new TicketOffice(destiny,
+				new Position(ConstantsModels.SIZE_TERMINAL * listTicketOffice.size() / numerOffice, 400),
+				ConstantsModels.SIZE_TICKET_OFFICE);
 		ticketOffice.setActualBus(createBusRandom());
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
 	}
 
 	private Bus createBusRandom() {
-		return new Bus("License", TypeBus.values()[(int) (Math.random() * TypeBus.values().length + 1)]);
+		return new Bus("License", TypeBus.values()[(int) (Math.random() * TypeBus.values().length)]);
 	}
 
 	public void verifyBusesTickets() {

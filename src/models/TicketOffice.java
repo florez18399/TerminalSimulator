@@ -6,19 +6,20 @@ public class TicketOffice {
 	private MyLinkedList<Passenger> usersServed;
 	private Bus actualBus;
 	private Position positionOffice;
+	private int sizeTicketOffice;
 
-	public TicketOffice(Destiny destiny) {
+	public TicketOffice(Destiny destiny, Position position, int size) {
 		this.destiny = destiny;
 		buyersQueue = new MyQueue<Passenger>();
 		usersServed = new MyLinkedList<Passenger>(new ComparatorPassengers());
-		System.out.println("Pedir busssss al terminal");
+		positionOffice = position;
+		sizeTicketOffice = size;
 	}
 
 	public void servePassenger() {
 		if (buyersQueue.peek() != null) {
 			Node<Passenger> nodePassenger = buyersQueue.dequeue();
 			nodePassenger.setNextNode(null);
-//			System.out.println(nodePassenger.getInfo() + " Siguiente: " + nodePassenger.getNextNode());
 			usersServed.addNode(nodePassenger);
 			actualBus.addToBus(nodePassenger.getInfo());
 		}
@@ -48,6 +49,22 @@ public class TicketOffice {
 		this.usersServed = usersServed;
 	}
 
+	public Position getPositionOffice() {
+		return positionOffice;
+	}
+
+	public void setPositionOffice(Position positionOffice) {
+		this.positionOffice = positionOffice;
+	}
+
+	public int getSizeTicketOffice() {
+		return sizeTicketOffice;
+	}
+
+	public void setSizeTicketOffice(int sizeTicketOffice) {
+		this.sizeTicketOffice = sizeTicketOffice;
+	}
+
 	@Override
 	public String toString() {
 		return "Taquilla: " + destiny.getName();
@@ -59,6 +76,7 @@ public class TicketOffice {
 
 	public void setActualBus(Bus actualBus) {
 		this.actualBus = actualBus;
+		this.actualBus.setPosition(new Position(positionOffice.getX(), positionOffice.getY() + sizeTicketOffice * 2));
 	}
 
 }
