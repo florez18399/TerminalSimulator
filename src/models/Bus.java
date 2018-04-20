@@ -4,18 +4,28 @@ public class Bus {
 	private String license;
 	private TypeBus typeBus;
 	private MyLinkedList<Passenger> listPassengers;
-	private StatusBus statusBus;
 	private Position position;
+	private int totalPassengers;
 
 	public Bus(String license, TypeBus typeBus) {
 		this.license = license;
 		this.typeBus = typeBus;
-		listPassengers = new MyLinkedList<>(new ComparatorPassengers());
-		statusBus = StatusBus.WAITING;
+		listPassengers = new MyLinkedList<Passenger>();
+	}
+
+	public void addToBus(Passenger passenger) {
+		if (totalPassengers < typeBus.getPassengerCapacity()) {
+			listPassengers.addNode(new Node<Passenger>(passenger));
+			totalPassengers++;
+		}
 	}
 	
+	public boolean isFull() {
+		return totalPassengers == typeBus.getPassengerCapacity() ? true : false;
+	}
+
 	public void moveBus() {
-		position.setX(position.getX() + typeBus.getSpeed()/100);
+		position.setX(position.getX() + typeBus.getSpeed() / 100);
 	}
 
 	public String getLicense() {
@@ -42,20 +52,20 @@ public class Bus {
 		this.listPassengers = listPassengers;
 	}
 
-	public StatusBus getStatusBus() {
-		return statusBus;
-	}
-
-	public void setStatusBus(StatusBus statusBus) {
-		this.statusBus = statusBus;
-	}
-
 	public Position getPosition() {
 		return position;
 	}
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	public int getTotalPassengers() {
+		return totalPassengers;
+	}
+
+	public void setTotalPassengers(int totalPassengers) {
+		this.totalPassengers = totalPassengers;
 	}
 
 }

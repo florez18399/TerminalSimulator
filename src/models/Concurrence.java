@@ -1,7 +1,7 @@
 package models;
 
 public enum Concurrence {
-	LOW(5), MEDIUM(10), HIGH(15);
+	LOW(10), MEDIUM(15), HIGH(20);
 
 	private int max;
 

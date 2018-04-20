@@ -1,9 +1,10 @@
 package controller;
 
 public enum Commands {
-	INIT_SIMULATION("INIT_SIMULATION", "Iniciar la simulación", "Inicia la simulación", "/images/playIcon.png"), 
-	STOP_SIMULATION("STOP_SIMULATION", "Parar la simulación", "Para la simualación", "/images/stopIcon.png"), 
-	GENERATE_REPORT("GENERATE_REPORT", "Generar reporte", "Genera reporte", "/images/reportIcon.png");
+	INIT_SIMULATION("INIT_SIMULATION", "Iniciar la simulación", "Inicia la simulación",
+			"/images/playIcon.png"), STOP_SIMULATION("STOP_SIMULATION", "Parar la simulación", "Para la simualación",
+					"/images/stopIcon.png"), GENERATE_REPORT("GENERATE_REPORT", "Generar reporte", "Genera reporte",
+							"/images/reportIcon.png");
 	private String command;
 	private String title;
 	private String description;
@@ -20,32 +21,16 @@ public enum Commands {
 		return command;
 	}
 
-	public void setCommand(String command) {
-		this.command = command;
-	}
-
 	public String getTitle() {
 		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
 	}
 
 	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public String getPathIcon() {
 		return pathIcon;
-	}
-
-	public void setPathIcon(String pathIcon) {
-		this.pathIcon = pathIcon;
 	}
 
 }

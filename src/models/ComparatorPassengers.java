@@ -6,7 +6,10 @@ public class ComparatorPassengers implements Comparator<Passenger> {
 
 	@Override
 	public int compare(Passenger passOne, Passenger passTwo) {
-		return passOne.getId() - passTwo.getId();
+		if(passOne.equals(passTwo)) {
+			return 0;
+		}
+		return -1;
 	}
 
 }

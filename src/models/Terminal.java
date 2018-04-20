@@ -27,19 +27,29 @@ public class Terminal {
 		}
 	}
 
+	public void loadQueueBuses() {
+		System.out.println("Leer archivo de buses");
+		queueTotalBuses = new MyQueue<Bus>();
+	}
+
 	private void createTicketOffice(String destination) {
 		String vecDestiny[] = destination.split("/");
 		Destiny destiny = new Destiny(vecDestiny[0], Integer.parseInt(vecDestiny[1]), Integer.parseInt(vecDestiny[2]));
 		TicketOffice ticketOffice = new TicketOffice(destiny);
+		ticketOffice.setActualBus(createBusRandom());
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
 	}
 
-	public void createPassengers() {
-		createPassengers(concurrence.getMax());
+	private Bus createBusRandom() {
+		return new Bus("License", TypeBus.values()[(int) (Math.random() * TypeBus.values().length + 1)]);
+	}
+	
+	public void verifyBusesTickets() {
+		
 	}
 
-	private void createPassengers(int max) {
-		int created = (int) (Math.random() * max);
+	public void createPassengers() {
+		int created = (int) (Math.random() * concurrence.getMax());
 		int i = 0;
 		while (i < created) {
 			incoming.enqueue(new Node<Passenger>(createPassenger()));
@@ -48,14 +58,44 @@ public class Terminal {
 	}
 
 	private Passenger createPassenger() {
-		int idDestiny = ((int) (Math.random() * listTicketOffice.size()));
+		int idDestiny = ((int) (Math.random() * listTicketOffice.size()) + 1);
 		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny());
 		return passenger;
 	}
 
-	public void loadQueueBuses() {
-		System.out.println("Leer archivo de buses");
-		queueTotalBuses = new MyQueue<Bus>();
+	public void sendToTicketOffice() {
+		if (!incoming.isEmpty()) {
+			Passenger passenger = incoming.dequeue().getInfo();
+			Node<TicketOffice> node = listTicketOffice.getHead();
+			while (node != null) {
+				System.out.println(node.getInfo());
+				if (node.getInfo().getDestiny().equals(passenger.getDestiny())) {
+					node.getInfo().getBuyersQueue().enqueue(new Node<Passenger>(passenger));
+					return;
+				}
+				node = node.getNextNode();
+			}
+		}
+	}
+
+	public void atendAllTickets() {
+		Node<TicketOffice> actual = listTicketOffice.getHead();
+		while (actual != null) {
+			actual.getInfo().servePassenger();
+			actual = actual.getNextNode();
+		}
+	}
+
+	public MyQueue<Passenger> getIncoming() {
+		return incoming;
+	}
+
+	public void setIncoming(MyQueue<Passenger> incoming) {
+		this.incoming = incoming;
+	}
+
+	public void setListTicketOffice(MyLinkedList<TicketOffice> listTicketOffice) {
+		this.listTicketOffice = listTicketOffice;
 	}
 
 	public String getName() {

@@ -2,13 +2,26 @@ package models;
 
 public class TicketOffice {
 	private Destiny destiny;
-	private MyQueue<Passenger> buyersQueue;
+	private volatile MyQueue<Passenger> buyersQueue;
 	private MyLinkedList<Passenger> usersServed;
+	private Bus actualBus;
+	private Position positionOffice;
 
 	public TicketOffice(Destiny destiny) {
 		this.destiny = destiny;
-		buyersQueue = new MyQueue<>();
-		usersServed = new MyLinkedList<>(new ComparatorPassengers());
+		buyersQueue = new MyQueue<Passenger>();
+		usersServed = new MyLinkedList<Passenger>(new ComparatorPassengers());
+		System.out.println("Pedir busssss al terminal");
+	}
+
+	public void servePassenger() {
+		if (buyersQueue.peek() != null) {
+			Node<Passenger> nodePassenger = buyersQueue.dequeue();
+			nodePassenger.setNextNode(null);
+//			System.out.println(nodePassenger.getInfo() + " Siguiente: " + nodePassenger.getNextNode());
+			usersServed.addNode(nodePassenger);
+			actualBus.addToBus(nodePassenger.getInfo());
+		}
 	}
 
 	public Destiny getDestiny() {
@@ -39,5 +52,13 @@ public class TicketOffice {
 	public String toString() {
 		return "Taquilla: " + destiny.getName();
 	}
-	
+
+	public Bus getActualBus() {
+		return actualBus;
+	}
+
+	public void setActualBus(Bus actualBus) {
+		this.actualBus = actualBus;
+	}
+
 }
