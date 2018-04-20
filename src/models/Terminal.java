@@ -10,11 +10,13 @@ public class Terminal {
 	private FilesTerminal filesTerminal;
 	private Concurrence concurrence;
 	private MyQueue<Passenger> incoming;
+	private MyLinkedList<Bus> dispatched;
 
 	public Terminal(String name) {
 		this.name = name;
 		filesTerminal = new FilesTerminal();
 		incoming = new MyQueue<Passenger>();
+		dispatched = new MyLinkedList<Bus>();
 		loadQueueBuses();
 		loadTicketOffices();
 	}
@@ -43,9 +45,16 @@ public class Terminal {
 	private Bus createBusRandom() {
 		return new Bus("License", TypeBus.values()[(int) (Math.random() * TypeBus.values().length + 1)]);
 	}
-	
+
 	public void verifyBusesTickets() {
-		
+		Node<TicketOffice> ticketOfficeActual = listTicketOffice.getHead();
+		while (ticketOfficeActual != null) {
+			if (ticketOfficeActual.getInfo().getActualBus().isFull()) {
+				dispatched.addNode(new Node<Bus>(ticketOfficeActual.getInfo().getActualBus()));
+				ticketOfficeActual.getInfo().setActualBus(createBusRandom());
+			}
+			ticketOfficeActual = ticketOfficeActual.getNextNode();
+		}
 	}
 
 	public void createPassengers() {
