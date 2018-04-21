@@ -2,6 +2,8 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.Timer;
 
@@ -10,7 +12,7 @@ import models.Concurrence;
 import models.ConstantsModels;
 import models.Terminal;
 
-public class Controller implements ActionListener {
+public class Controller implements ActionListener, MouseListener {
 	private static Controller controller;
 	private Terminal terminal;
 	private JFrameMain frameMain;
@@ -96,4 +98,5 @@ public class Controller implements ActionListener {
 		timerTerminal.stop();
 		timerTicketOffice.stop();
 	}
+
 }

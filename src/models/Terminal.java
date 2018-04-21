@@ -19,28 +19,22 @@ public class Terminal {
 		filesTerminal = new FilesTerminal();
 		incoming = new MyQueue<Passenger>();
 		dispatched = new MyLinkedList<Bus>();
-		loadQueueBuses();
 		loadTicketOffices();
 	}
 
 	public void loadTicketOffices() {
 		listTicketOffice = new MyLinkedList<TicketOffice>(new LockersComparator());
 		ArrayList<String> listDestinations = filesTerminal.getListDestinations();
-		for (String destination : listDestinations) {
-			createTicketOffice(destination, listDestinations.indexOf(destination) + 1);
+		for (int i = 0; i < listDestinations.size(); i++) {
+			createTicketOffice(listDestinations.get(i), i + 1, listDestinations.size());
 		}
 	}
 
-	public void loadQueueBuses() {
-		System.out.println("Leer archivo de buses");
-		queueTotalBuses = new MyQueue<Bus>();
-	}
-
-	private void createTicketOffice(String destination, int numerOffice) {
+	private void createTicketOffice(String destination, int numberOffice, int quantity) {
 		String vecDestiny[] = destination.split("/");
 		Destiny destiny = new Destiny(vecDestiny[0], Integer.parseInt(vecDestiny[1]), Integer.parseInt(vecDestiny[2]));
 		TicketOffice ticketOffice = new TicketOffice(destiny,
-				new Position(ConstantsModels.SIZE_TERMINAL * listTicketOffice.size() / numerOffice, 400),
+				new Position(ConstantsModels.SIZE_TERMINAL * (numberOffice) / quantity, 120),
 				ConstantsModels.SIZE_TICKET_OFFICE);
 		ticketOffice.setActualBus(createBusRandom());
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
@@ -58,6 +52,14 @@ public class Terminal {
 				ticketOfficeActual.getInfo().setActualBus(createBusRandom());
 			}
 			ticketOfficeActual = ticketOfficeActual.getNextNode();
+		}
+	}
+
+	public void moveBuses() {
+		Node<Bus> actual = dispatched.getHead();
+		while (actual != null) {
+			actual.getInfo().moveBus();
+			actual = actual.getNextNode();
 		}
 	}
 

@@ -8,6 +8,8 @@ public class ConstantsGUI {
 	public final static int SIZE_TICKET_OFFICE = 200;
 	public final static int SIZE_PERSON = 20;
 	
+	public final static String ICON_TICKET_OFFICE_PATH = "/images/ticketOfficeIcon.png";
+	public final static String ICON_ENTRY_PATH = "/images/entryIcon.png";
 	
 	
 }
