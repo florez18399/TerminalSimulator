@@ -83,7 +83,6 @@ public class Terminal {
 			Passenger passenger = incoming.dequeue().getInfo();
 			Node<TicketOffice> node = listTicketOffice.getHead();
 			while (node != null) {
-				System.out.println(node.getInfo());
 				if (node.getInfo().getDestiny().equals(passenger.getDestiny())) {
 					node.getInfo().getBuyersQueue().enqueue(new Node<Passenger>(passenger));
 					return;
@@ -135,6 +134,10 @@ public class Terminal {
 
 	public void setConcurrence(Concurrence concurrence) {
 		this.concurrence = concurrence;
+	}
+
+	public MyLinkedList<Bus> getDispatched() {
+		return dispatched;
 	}
 
 }

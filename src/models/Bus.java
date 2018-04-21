@@ -19,13 +19,13 @@ public class Bus {
 			totalPassengers++;
 		}
 	}
-	
+
 	public boolean isFull() {
 		return totalPassengers == typeBus.getPassengerCapacity() ? true : false;
 	}
 
 	public void moveBus() {
-		position.setX(position.getX() + typeBus.getSpeed() / 100);
+		position.setY(position.getY() + typeBus.getSpeed() / 10);
 	}
 
 	public String getLicense() {

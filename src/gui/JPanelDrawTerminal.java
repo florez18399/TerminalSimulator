@@ -4,12 +4,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.ImageObserver;
-
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-
-import controller.Controller;
 import models.Bus;
 import models.Node;
 import models.Terminal;
@@ -36,17 +32,25 @@ public class JPanelDrawTerminal extends JPanel {
 
 	@Override
 	public void paint(Graphics g) {
-		addMouseListener(Controller.getInstance());
 		setOpaque(false);
 		paintTerminal(g);
 		super.paint(g);
 	}
 
 	private void paintTerminal(Graphics graphics) {
-		Node<TicketOffice> node = terminal.getListTicketOffice().getHead();
-		while (node != null) {
-			drawTicketOffice(graphics, node.getInfo());
-			node = node.getNextNode();
+		Node<TicketOffice> nodeTOffice = terminal.getListTicketOffice().getHead();
+		while (nodeTOffice != null) {
+			drawTicketOffice(graphics, nodeTOffice.getInfo());
+			nodeTOffice = nodeTOffice.getNextNode();
+		}
+		drawBusesInMove(graphics);
+	}
+
+	private void drawBusesInMove(Graphics graphics) {
+		Node<Bus> nodeBus = terminal.getDispatched().getHead();
+		while (nodeBus != null) {
+			drawBus(nodeBus.getInfo(), graphics);
+			nodeBus = nodeBus.getNextNode();
 		}
 	}
 
@@ -58,8 +62,10 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void drawBus(Bus bus, Graphics graphics) {
-		graphics.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(bus.getTypeBus().getPathIconBus())),
-				bus.getPosition().getX(), bus.getPosition().getY(), bus.getTypeBus().getWidth(), bus.getTypeBus().getLength(), this);
+		graphics.drawImage(
+				Toolkit.getDefaultToolkit().getImage(getClass().getResource(bus.getTypeBus().getPathIconBus())),
+				bus.getPosition().getX(), bus.getPosition().getY(), bus.getTypeBus().getWidth(),
+				bus.getTypeBus().getLength(), this);
 	}
 
 	private Image getScaledImage(String pathImage, int width, int height) {

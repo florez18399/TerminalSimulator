@@ -12,13 +12,14 @@ import models.Concurrence;
 import models.ConstantsModels;
 import models.Terminal;
 
-public class Controller implements ActionListener, MouseListener {
+public class Controller implements ActionListener {
 	private static Controller controller;
 	private Terminal terminal;
 	private JFrameMain frameMain;
 	private int speed;
 	private Timer timerTerminal;
 	private Timer timerTicketOffice;
+	private Timer timerBuses;
 
 	private Controller() {
 
@@ -83,6 +84,7 @@ public class Controller implements ActionListener, MouseListener {
 			}
 		});
 		timerTicketOffice.start();
+		startOperationBuses();
 	}
 
 	private void startOfTerminal() {
@@ -94,9 +96,22 @@ public class Controller implements ActionListener, MouseListener {
 		}
 	}
 
+	private void startOperationBuses() {
+		timerBuses = new Timer(150, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				terminal.moveBuses();
+				frameMain.repaint();
+			}
+		});
+		timerBuses.start();
+	}
+
 	private void stopSimulation() {
 		timerTerminal.stop();
 		timerTicketOffice.stop();
+		timerBuses.stop();
 	}
 
 }
