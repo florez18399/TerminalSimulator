@@ -9,6 +9,7 @@ public class ConstantsGUI {
 	public final static int WIDTH_ROAD = 50;
 	public final static int HEIGHT_ROAD = 800;
 	public final static String ICON_TICKET_OFFICE_PATH = "/images/ticketOfficeIcon.png";
+	public final static String ICON_TICKET_OFFICE2_PATH = "/images/ticketOfficeIcon2.png";
 	public final static String ICON_ENTRY_PATH = "/images/entryIcon.png";
 	public final static String ICON_PERSON_PATH = "/images/personIcon.png";
 	public final static String ICON_PERSON2_PATH = "/images/personIcon2.png";
