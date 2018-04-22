@@ -1,13 +1,16 @@
 package gui;
 
+import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import models.Bus;
+import models.ConstantsModels;
 import models.Node;
+import models.Passenger;
+import models.Position;
 import models.Terminal;
 import models.TicketOffice;
 
@@ -38,12 +41,36 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void paintTerminal(Graphics graphics) {
+		drawEntry(graphics);
+		drawAllTickets(graphics);
+		drawPassengers(graphics);
+		drawBusesInMove(graphics);
+	}
+
+	private void drawPassengers(Graphics graphics) {
+		Node<Passenger> nodePassenger = terminal.getIncoming().getHead();
+		while (nodePassenger != null) {
+			Position positionPassenger = nodePassenger.getInfo().getPosition();
+			graphics.drawImage(
+					Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ICON_PERSON2_PATH)),
+					positionPassenger.getX(), positionPassenger.getY(), ConstantsGUI.SIZE_PERSON,
+					ConstantsGUI.SIZE_PERSON, this);
+			nodePassenger = nodePassenger.getNextNode();
+		}
+	}
+
+	private void drawAllTickets(Graphics graphics) {
 		Node<TicketOffice> nodeTOffice = terminal.getListTicketOffice().getHead();
 		while (nodeTOffice != null) {
 			drawTicketOffice(graphics, nodeTOffice.getInfo());
 			nodeTOffice = nodeTOffice.getNextNode();
 		}
-		drawBusesInMove(graphics);
+	}
+
+	private void drawEntry(Graphics graphics) {
+		graphics.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ICON_ENTRY_PATH)),
+				terminal.getPosition().getX(), terminal.getPosition().getY(), ConstantsModels.SIZE_TERMINAL_ENTRY,
+				ConstantsModels.SIZE_TERMINAL_ENTRY, this);
 	}
 
 	private void drawBusesInMove(Graphics graphics) {
@@ -55,10 +82,16 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void drawTicketOffice(Graphics g, TicketOffice ticketOffice) {
-		g.drawImage(imageTicketOffice, ticketOffice.getPositionOffice().getX() - ticketOffice.getSizeTicketOffice() / 2,
-				ticketOffice.getPositionOffice().getY(), ticketOffice.getSizeTicketOffice(),
-				ticketOffice.getSizeTicketOffice(), this);
+		g.drawImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ROAD2_IMAGE_PATH)),
+				ticketOffice.getPositionOffice().getX(), ticketOffice.getActualBus().getPosition().getY() - 20,
+				ConstantsGUI.WIDTH_ROAD, ConstantsGUI.HEIGHT_ROAD, this);
+
+		g.drawImage(imageTicketOffice, ticketOffice.getPositionOffice().getX(), ticketOffice.getPositionOffice().getY(),
+				ticketOffice.getSizeTicketOffice(), ticketOffice.getSizeTicketOffice(), this);
 		drawBus(ticketOffice.getActualBus(), g);
+		g.setFont(new Font("Times New Roman" , Font.PLAIN, 15));
+		g.drawString(ticketOffice.getDestiny().getName(), ticketOffice.getPositionOffice().getX(),
+				ticketOffice.getPositionOffice().getY() + ticketOffice.getSizeTicketOffice() / 2);
 	}
 
 	private void drawBus(Bus bus, Graphics graphics) {

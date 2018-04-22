@@ -2,11 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.Timer;
-
 import gui.JFrameMain;
 import models.Concurrence;
 import models.ConstantsModels;
@@ -16,10 +12,10 @@ public class Controller implements ActionListener {
 	private static Controller controller;
 	private Terminal terminal;
 	private JFrameMain frameMain;
-	private int speed;
 	private Timer timerTerminal;
 	private Timer timerTicketOffice;
 	private Timer timerBuses;
+	private Timer timerPersons;
 
 	private Controller() {
 
@@ -60,7 +56,7 @@ public class Controller implements ActionListener {
 	}
 
 	private void initSimulation() {
-		terminal.setConcurrence(Concurrence.HIGH);
+		terminal.setConcurrence(Concurrence.MEDIUM);
 		timerTerminal = new Timer(terminal.getConcurrence().getTimeCreation(), new ActionListener() {
 
 			@Override
@@ -69,16 +65,25 @@ public class Controller implements ActionListener {
 			}
 		});
 		timerTerminal.start();
+		startMovePersons();
 		startOperationLockers();
+	}
+
+	private void startMovePersons() {
+		timerPersons = new Timer(100, new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				terminal.movePersons();
+				frameMain.repaint();
+			}
+		});
+		timerPersons.start();
 	}
 
 	private void startOfTerminal() {
 		terminal.createPassenger();
 		frameMain.repaint();
-		int passengersIn = (int) (Math.random() * ConstantsModels.PASSENGERS_IN_TERMINAL);
-		for (int i = 0; i < passengersIn; i++) {
-			terminal.sendToTicketOffice();
-		}
 	}
 
 	private void startOperationLockers() {
@@ -111,6 +116,7 @@ public class Controller implements ActionListener {
 		timerTerminal.stop();
 		timerTicketOffice.stop();
 		timerBuses.stop();
+		timerPersons.stop();
 	}
 
 }

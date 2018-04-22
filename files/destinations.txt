@@ -3,3 +3,5 @@ Yopal/400/40000
 Tunja/45/5500
 Duitama/20/2000
 Bucaramanga/250/8000
+Medellín/845/20000
+Cúcuta/900/15000

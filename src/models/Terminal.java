@@ -1,8 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-
-import controller.Commands;
 import persistence.FilesTerminal;
 
 public class Terminal {
@@ -11,18 +9,22 @@ public class Terminal {
 	private MyQueue<Bus> queueTotalBuses;
 	private FilesTerminal filesTerminal;
 	private Concurrence concurrence;
-	private MyQueue<Passenger> incoming;
+	private MyLinkedList<Passenger> incoming;
 	private MyLinkedList<Bus> dispatched;
 	private Position position;
 
 	public Terminal(String name) {
 		this.name = name;
 		filesTerminal = new FilesTerminal();
-		incoming = new MyQueue<Passenger>();
+		incoming = new MyLinkedList<Passenger>(new ComparatorPassengers());
 		dispatched = new MyLinkedList<Bus>();
+		position = ConstantsModels.POSITION_ENTRY;
 		loadTicketOffices();
 	}
 
+	/**
+	 * Lee los destinos del archivo plano y para cada uno crea una taquilla
+	 */
 	public void loadTicketOffices() {
 		listTicketOffice = new MyLinkedList<TicketOffice>(new LockersComparator());
 		ArrayList<String> listDestinations = filesTerminal.getListDestinations();
@@ -35,7 +37,8 @@ public class Terminal {
 		String vecDestiny[] = destination.split("/");
 		Destiny destiny = new Destiny(vecDestiny[0], Integer.parseInt(vecDestiny[1]), Integer.parseInt(vecDestiny[2]));
 		TicketOffice ticketOffice = new TicketOffice(destiny,
-				new Position(ConstantsModels.SIZE_TERMINAL * (numberOffice) / quantity, 120),
+				new Position(ConstantsModels.SIZE_TERMINAL * (numberOffice) / quantity,
+						ConstantsModels.POSITION_Y_TICKET),
 				ConstantsModels.SIZE_TICKET_OFFICE);
 		ticketOffice.setActualBus(createBusRandom());
 		listTicketOffice.addNode(new Node<TicketOffice>(ticketOffice));
@@ -45,6 +48,9 @@ public class Terminal {
 		return new Bus("License", TypeBus.values()[(int) (Math.random() * TypeBus.values().length)]);
 	}
 
+	/**
+	 * Verifica los buses de cada taquilla y si ya está lleno lo cambia
+	 */
 	public void verifyBusesTickets() {
 		Node<TicketOffice> ticketOfficeActual = listTicketOffice.getHead();
 		while (ticketOfficeActual != null) {
@@ -56,6 +62,9 @@ public class Terminal {
 		}
 	}
 
+	/**
+	 * Cambia de posición a todos los buses que han sido despachados
+	 */
 	public void moveBuses() {
 		Node<Bus> actual = dispatched.getHead();
 		while (actual != null) {
@@ -64,27 +73,77 @@ public class Terminal {
 		}
 	}
 
+	/**
+	 * Crea un pasajero con destino aleatorio y lo agrega a una lista enlazada
+	 * 
+	 * @return
+	 */
 	public Passenger createPassenger() {
 		int idDestiny = ((int) (Math.random() * listTicketOffice.size()) + 1);
-		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny(), position);
-		incoming.enqueue(new Node<Passenger>(passenger));
+		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny(),
+				new Position(ConstantsModels.X_ENTRY_PERSONS, ConstantsModels.Y_ENTRY_PERSONS));
+		passenger.setPositionTickets(listTicketOffice.get(idDestiny).getInfo().getPositionOffice());
+		incoming.addNode(new Node<Passenger>(passenger));
 		return passenger;
 	}
 
-	public void sendToTicketOffice() {
-		if (!incoming.isEmpty()) {
-			Passenger passenger = incoming.dequeue().getInfo();
-			Node<TicketOffice> node = listTicketOffice.getHead();
-			while (node != null) {
-				if (node.getInfo().getDestiny().equals(passenger.getDestiny())) {
-					node.getInfo().getBuyersQueue().enqueue(new Node<Passenger>(passenger));
-					return;
-				}
-				node = node.getNextNode();
+	public void movePersons() {
+		Node<Passenger> actual = incoming.getHead();
+		while (actual != null) {
+			actual.getInfo().move();
+			actual = actual.getNextNode();
+		}
+		sendToTheTicketOffice();
+	}
+
+	private void sendToTheTicketOffice() {
+		Node<Passenger> actual = incoming.getHead();
+		ArrayList<Node<Passenger>> list = new ArrayList<>();
+		while (actual != null) {
+			if (actual.getInfo().isArrived()) {
+				TicketOffice office = searchTicketOffice(actual.getInfo().getDestiny());
+				office.getBuyersQueue().enqueue(new Node<Passenger>(actual.getInfo()));
+				list.add(actual);
 			}
+			actual = actual.getNextNode();
+		}
+		for (Node<Passenger> node : list) {
+			incoming.removeNode(node.getInfo());
 		}
 	}
 
+	private TicketOffice searchTicketOffice(Destiny destiny) {
+		Node<TicketOffice> node = listTicketOffice.getHead();
+		while (node != null) {
+			if (node.getInfo().getDestiny().equals(destiny)) {
+				return node.getInfo();
+			}
+			node = node.getNextNode();
+		}
+		return null;
+	}
+
+	/**
+	 * Envía pasajeros que están en la entrada a la cola de la taquilla
+	 * correspondiente
+	 */
+	public void sendToTicketOffice() {
+		// if (!incoming.isEmpty()) {
+		// Passenger passenger = incoming.dequeue().getInfo();
+		// Node<TicketOffice> node = listTicketOffice.getHead();
+		// while (node != null) {
+		// if (node.getInfo().getDestiny().equals(passenger.getDestiny())) {
+		// node.getInfo().getBuyersQueue().enqueue(new Node<Passenger>(passenger));
+		// return;
+		// }
+		// node = node.getNextNode();
+		// }
+		// }
+	}
+
+	/**
+	 * Funcionamiento de todas las taquillas
+	 */
 	public void atendAllTickets() {
 		Node<TicketOffice> actual = listTicketOffice.getHead();
 		while (actual != null) {
@@ -93,11 +152,11 @@ public class Terminal {
 		}
 	}
 
-	public MyQueue<Passenger> getIncoming() {
+	public MyLinkedList<Passenger> getIncoming() {
 		return incoming;
 	}
 
-	public void setIncoming(MyQueue<Passenger> incoming) {
+	public void setIncoming(MyLinkedList<Passenger> incoming) {
 		this.incoming = incoming;
 	}
 
@@ -131,6 +190,14 @@ public class Terminal {
 
 	public MyLinkedList<Bus> getDispatched() {
 		return dispatched;
+	}
+
+	public Position getPosition() {
+		return position;
+	}
+
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 
 }

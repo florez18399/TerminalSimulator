@@ -76,7 +76,8 @@ public class TicketOffice {
 
 	public void setActualBus(Bus actualBus) {
 		this.actualBus = actualBus;
-		this.actualBus.setPosition(new Position(positionOffice.getX(), positionOffice.getY() + sizeTicketOffice * 2));
+		this.actualBus.setPosition(
+				new Position(positionOffice.getX(), (int) (positionOffice.getY() + sizeTicketOffice * 1.5)));
 	}
 
 }
