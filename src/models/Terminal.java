@@ -13,6 +13,7 @@ public class Terminal {
 	private Concurrence concurrence;
 	private MyQueue<Passenger> incoming;
 	private MyLinkedList<Bus> dispatched;
+	private Position position;
 
 	public Terminal(String name) {
 		this.name = name;
@@ -63,18 +64,10 @@ public class Terminal {
 		}
 	}
 
-	public void createPassengers() {
-		int created = (int) (Math.random() * concurrence.getMax());
-		int i = 0;
-		while (i < created) {
-			incoming.enqueue(new Node<Passenger>(createPassenger()));
-			i++;
-		}
-	}
-
-	private Passenger createPassenger() {
+	public Passenger createPassenger() {
 		int idDestiny = ((int) (Math.random() * listTicketOffice.size()) + 1);
-		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny());
+		Passenger passenger = new Passenger(listTicketOffice.get(idDestiny).getInfo().getDestiny(), position);
+		incoming.enqueue(new Node<Passenger>(passenger));
 		return passenger;
 	}
 

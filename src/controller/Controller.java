@@ -61,8 +61,7 @@ public class Controller implements ActionListener {
 
 	private void initSimulation() {
 		terminal.setConcurrence(Concurrence.HIGH);
-		this.speed = 1000;
-		timerTerminal = new Timer(speed, new ActionListener() {
+		timerTerminal = new Timer(terminal.getConcurrence().getTimeCreation(), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -71,6 +70,15 @@ public class Controller implements ActionListener {
 		});
 		timerTerminal.start();
 		startOperationLockers();
+	}
+
+	private void startOfTerminal() {
+		terminal.createPassenger();
+		frameMain.repaint();
+		int passengersIn = (int) (Math.random() * ConstantsModels.PASSENGERS_IN_TERMINAL);
+		for (int i = 0; i < passengersIn; i++) {
+			terminal.sendToTicketOffice();
+		}
 	}
 
 	private void startOperationLockers() {
@@ -85,15 +93,6 @@ public class Controller implements ActionListener {
 		});
 		timerTicketOffice.start();
 		startOperationBuses();
-	}
-
-	private void startOfTerminal() {
-		terminal.createPassengers();
-		frameMain.repaint();
-		int passengersIn = (int) (Math.random() * ConstantsModels.PASSENGERS_IN_TERMINAL);
-		for (int i = 0; i < passengersIn; i++) {
-			terminal.sendToTicketOffice();
-		}
 	}
 
 	private void startOperationBuses() {

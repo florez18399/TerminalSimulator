@@ -1,19 +1,15 @@
 package models;
 
 public enum Concurrence {
-	LOW(10), MEDIUM(15), HIGH(20);
+	LOW(1000), MEDIUM(400), HIGH(150);
 
-	private int max;
+	private int timeCreation;
 
-	private Concurrence(int max) {
-		this.max = max;
+	private Concurrence(int timeCreation) {
+		this.timeCreation = timeCreation;
 	}
 
-	public int getMax() {
-		return max;
-	}
-
-	public void setMax(int max) {
-		this.max = max;
+	public int getTimeCreation() {
+		return timeCreation;
 	}
 }

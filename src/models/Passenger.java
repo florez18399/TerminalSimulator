@@ -4,15 +4,17 @@ public class Passenger {
 	private String name;
 	private int id;
 	private Destiny destiny;
+	private Position position;
 
-	public Passenger(String name, int id, Destiny destiny) {
+	public Passenger(String name, int id, Destiny destiny, Position position) {
 		this.name = name;
 		this.destiny = destiny;
+		this.position = position;
 	}
 
-	public Passenger(Destiny destiny) {
-		super();
+	public Passenger(Destiny destiny, Position position) {
 		this.destiny = destiny;
+		this.position = position;
 	}
 
 	public String getName() {
