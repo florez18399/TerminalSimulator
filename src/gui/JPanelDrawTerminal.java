@@ -77,8 +77,10 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void drawEntry(Graphics graphics) {
+		graphics.setFont(ConstantsGUI.FONT_TITLES);
 		graphics.drawImage(imageEntry, terminal.getPosition().getX(), terminal.getPosition().getY(),
 				ConstantsModels.SIZE_TERMINAL_ENTRY, ConstantsModels.SIZE_TERMINAL_ENTRY, this);
+		graphics.drawString(terminal.getName(), terminal.getPosition().getX() - 20, terminal.getPosition().getY() - 10);
 	}
 
 	private void drawBusesInMove(Graphics graphics) {
@@ -97,7 +99,7 @@ public class JPanelDrawTerminal extends JPanel {
 		g.drawImage(imageTicketOffice, ticketOffice.getPositionOffice().getX(), ticketOffice.getPositionOffice().getY(),
 				ticketOffice.getSizeTicketOffice(), ticketOffice.getSizeTicketOffice(), this);
 		drawBus(ticketOffice.getActualBus(), g);
-		g.setFont(new Font("Impact", Font.PLAIN, 15));
+		g.setFont(ConstantsGUI.FONT_TITLES);
 		g.drawString(ticketOffice.getDestiny().getName(), ticketOffice.getPositionOffice().getX() + 5,
 				ticketOffice.getPositionOffice().getY() - ticketOffice.getSizeTicketOffice() * 1 / 10);
 	}
