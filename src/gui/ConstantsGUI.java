@@ -21,14 +21,15 @@ public class ConstantsGUI {
 	public final static String ROAD2_IMAGE_PATH = "/images/road2.jpg";
 	public final static Font FONT_TITLES = new Font("Impact", Font.PLAIN, 15);
 	public final static Font FONT_TITLES2 = new Font("Impact", Font.PLAIN, 35);
-	public final static Dimension DIMENSION_DIALOG_ABOUT = new Dimension(500, 275);
+	public final static Dimension DIMENSION_DIALOG_ABOUT = new Dimension(530, 275);
 	public final static Dimension DIMENSION_DIALOG_TITLE = new Dimension(480, 50);
-	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(300, 150);
+	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(340, 150);
 	public static final Dimension DIMENSION_IMAGE_ABOUT = new Dimension(128, 128);
 	public final static Color COLOR_BACK_APP = Color.decode("#FFF8E7");
-
-	public final static String TEXT_ABOUT_ = "Terminal Simulator. \nCreado por Andrés Felipe Flórez con la "
-			+ "\ncolaboración de:  Ing. Alexander Castro Romero. \nIngeniería de Sistemas y Computación.\n"
+	public final static String TEXT_SIMULATION = "Simulación";
+	public final static String TEXT_CONFIGURATION = "Configuración";
+	public final static String TEXT_ABOUT_ = "Terminal Simulator. \nCreado por Andrés Felipe Flórez Caro"
+			+ "\ncon la colaboración de:  Ing. Alexander Castro Romero. \nIngeniería de Sistemas y Computación.\n"
 			+ "UPTC.  \n2018";
 
 }
