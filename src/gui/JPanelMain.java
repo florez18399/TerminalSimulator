@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JPanel;
 
@@ -23,6 +24,7 @@ public class JPanelMain extends JPanel {
 		setLayout(new BorderLayout());
 		addPanelControl();
 		addPanelDraw(terminal);
+		setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
 	}
 
 	private void addPanelDraw(Terminal terminal) {

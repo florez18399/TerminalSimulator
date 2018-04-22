@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -77,10 +78,11 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void drawEntry(Graphics graphics) {
+		graphics.setColor(Color.WHITE);
 		graphics.setFont(ConstantsGUI.FONT_TITLES);
 		graphics.drawImage(imageEntry, terminal.getPosition().getX(), terminal.getPosition().getY(),
 				ConstantsModels.SIZE_TERMINAL_ENTRY, ConstantsModels.SIZE_TERMINAL_ENTRY, this);
-		graphics.drawString(terminal.getName(), terminal.getPosition().getX() - 20, terminal.getPosition().getY() - 10);
+		graphics.drawString(terminal.getName(), terminal.getPosition().getX() - 10, terminal.getPosition().getY() - 10);
 	}
 
 	private void drawBusesInMove(Graphics graphics) {
@@ -95,13 +97,25 @@ public class JPanelDrawTerminal extends JPanel {
 		g.drawImage(imageRoad, ticketOffice.getPositionOffice().getX(),
 				ticketOffice.getActualBus().getPosition().getY() - 20, ConstantsGUI.WIDTH_ROAD,
 				ConstantsGUI.HEIGHT_ROAD, this);
-
+		drawQueueTicketOffice(g, ticketOffice);
 		g.drawImage(imageTicketOffice, ticketOffice.getPositionOffice().getX(), ticketOffice.getPositionOffice().getY(),
 				ticketOffice.getSizeTicketOffice(), ticketOffice.getSizeTicketOffice(), this);
 		drawBus(ticketOffice.getActualBus(), g);
 		g.setFont(ConstantsGUI.FONT_TITLES);
+		g.setColor(Color.RED);
 		g.drawString(ticketOffice.getDestiny().getName(), ticketOffice.getPositionOffice().getX() + 5,
 				ticketOffice.getPositionOffice().getY() - ticketOffice.getSizeTicketOffice() * 1 / 10);
+	}
+
+	private void drawQueueTicketOffice(Graphics g, TicketOffice ticketOffice) {
+		int quantity = ticketOffice.getBuyersQueue().size();
+		int y = ticketOffice.getPositionOffice().getY() - 15;
+		for (int i = 0; i < quantity; i++) {
+			g.drawImage(imagePassenger,
+					ticketOffice.getPositionOffice().getX() + ticketOffice.getSizeTicketOffice() / 2, y,
+					ConstantsGUI.SIZE_PERSON, ConstantsGUI.SIZE_PERSON, this);
+			y -= 2;
+		}
 	}
 
 	private void drawBus(Bus bus, Graphics graphics) {
@@ -109,6 +123,10 @@ public class JPanelDrawTerminal extends JPanel {
 				Toolkit.getDefaultToolkit().getImage(getClass().getResource(bus.getTypeBus().getPathIconBus())),
 				bus.getPosition().getX(), bus.getPosition().getY(), bus.getTypeBus().getWidth(),
 				bus.getTypeBus().getLength(), this);
+		graphics.setColor(Color.WHITE);
+		graphics.setFont(ConstantsGUI.FONT_BUS);
+		graphics.drawString("Pasajeros: " + bus.getTotalPassengers(), bus.getPosition().getX(),
+				bus.getPosition().getY() + bus.getTypeBus().getLength() / 2 + 10);
 	}
 
 	private Image getScaledImage(String pathImage, int width, int height) {

@@ -26,7 +26,7 @@ public class Passenger {
 			position.setX(position.getX() - 1);
 		} else {
 			position.setY(position.getY() + 1);
-			if ((positionTickets.getY() - position.getY()) < 20) {
+			if ((positionTickets.getY() - position.getY()) < 60) {
 				isArrived = true;
 			}
 		}

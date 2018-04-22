@@ -28,7 +28,7 @@ public class Controller implements ActionListener {
 	}
 
 	public void initComponents() {
-		terminal = new Terminal("Terminal de Paipa :v");
+		terminal = new Terminal("Terminal de Paipa");
 		frameMain = new JFrameMain(terminal);
 	}
 
@@ -46,6 +46,9 @@ public class Controller implements ActionListener {
 		case GENERATE_REPORT:
 			generateReport();
 			break;
+		case SHOW_ABOUT:
+			frameMain.showDialogAbout();
+			break;
 		default:
 			break;
 		}
@@ -56,7 +59,7 @@ public class Controller implements ActionListener {
 	}
 
 	private void initSimulation() {
-		terminal.setConcurrence(Concurrence.MEDIUM);
+		terminal.setConcurrence(Concurrence.HIGH);
 		timerTerminal = new Timer(terminal.getConcurrence().getTimeCreation(), new ActionListener() {
 
 			@Override
@@ -70,7 +73,7 @@ public class Controller implements ActionListener {
 	}
 
 	private void startMovePersons() {
-		timerPersons = new Timer(100, new ActionListener() {
+		timerPersons = new Timer(10, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
