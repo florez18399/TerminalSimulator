@@ -1,6 +1,8 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import persistence.FilesTerminal;
 
 public class Terminal {
@@ -112,6 +114,12 @@ public class Terminal {
 		}
 	}
 
+	/**
+	 * Busca una taquilla mediante un destino
+	 * 
+	 * @param destiny
+	 * @return
+	 */
 	private TicketOffice searchTicketOffice(Destiny destiny) {
 		Node<TicketOffice> node = listTicketOffice.getHead();
 		while (node != null) {
@@ -124,24 +132,6 @@ public class Terminal {
 	}
 
 	/**
-	 * Envía pasajeros que están en la entrada a la cola de la taquilla
-	 * correspondiente
-	 */
-	public void sendToTicketOffice() {
-		// if (!incoming.isEmpty()) {
-		// Passenger passenger = incoming.dequeue().getInfo();
-		// Node<TicketOffice> node = listTicketOffice.getHead();
-		// while (node != null) {
-		// if (node.getInfo().getDestiny().equals(passenger.getDestiny())) {
-		// node.getInfo().getBuyersQueue().enqueue(new Node<Passenger>(passenger));
-		// return;
-		// }
-		// node = node.getNextNode();
-		// }
-		// }
-	}
-
-	/**
 	 * Funcionamiento de todas las taquillas
 	 */
 	public void atendAllTickets() {
@@ -150,6 +140,48 @@ public class Terminal {
 			actual.getInfo().servePassenger();
 			actual = actual.getNextNode();
 		}
+	}
+
+	/**
+	 * 
+	 * @return Una lista de prioridad ordenada por el total de ingresos de las
+	 *         taquillas
+	 */
+	public MyProrityList<TicketOffice> listSortedByIncomes() {
+		return getListSorted(new Comparator<TicketOffice>() {
+
+			@Override
+			public int compare(TicketOffice tOffOne, TicketOffice tOffTwo) {
+				return tOffOne.calculateTotalIncomes() - tOffTwo.calculateTotalIncomes();
+			}
+
+		});
+	}
+
+	/**
+	 * 
+	 * @return Una lista de prioridad ordenada por el total de ventas de las
+	 *         taquillas
+	 */
+	public MyProrityList<TicketOffice> listSortedBySales() {
+		return getListSorted(new Comparator<TicketOffice>() {
+
+			@Override
+			public int compare(TicketOffice tOffOne, TicketOffice tOffTwo) {
+				return tOffOne.ticketsSold() - tOffTwo.ticketsSold();
+			}
+
+		});
+	}
+
+	public MyProrityList<TicketOffice> getListSorted(Comparator<TicketOffice> comparator) {
+		MyProrityList<TicketOffice> list = new MyProrityList<>(comparator);
+		Node<TicketOffice> actual = listTicketOffice.getHead();
+		while (actual != null) {
+			list.addNode(new Node<TicketOffice>(actual.getInfo()));
+			actual = actual.getNextNode();
+		}
+		return list;
 	}
 
 	public MyLinkedList<Passenger> getIncoming() {

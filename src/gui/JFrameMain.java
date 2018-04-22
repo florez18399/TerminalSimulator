@@ -59,4 +59,9 @@ public class JFrameMain extends JFrame {
 	public void showDialogAbout() {
 		dialogAbout.setVisible(true);
 	}
+
+	public void showReport() {
+		panelMain.showReport();
+		panelMain.revalidate();
+	}
 }

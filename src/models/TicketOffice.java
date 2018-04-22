@@ -25,6 +25,10 @@ public class TicketOffice {
 		}
 	}
 
+	public int ticketsSold() {
+		return usersServed.size();
+	}
+
 	public int calculateTotalIncomes() {
 		return destiny.getValueTicket() * usersServed.size();
 	}

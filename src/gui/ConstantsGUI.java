@@ -22,6 +22,7 @@ public class ConstantsGUI {
 	public final static Font FONT_TITLES = new Font("Impact", Font.PLAIN, 15);
 	public final static Font FONT_TITLES2 = new Font("Impact", Font.PLAIN, 35);
 	public final static Font FONT_BUS = new Font("Century", Font.PLAIN, 10);
+	public static final Dimension DIMENSION_COMBO_CONC = new Dimension(115, 50);
 	public final static Dimension DIMENSION_DIALOG_ABOUT = new Dimension(530, 275);
 	public final static Dimension DIMENSION_DIALOG_TITLE = new Dimension(480, 50);
 	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(340, 150);
@@ -33,9 +34,9 @@ public class ConstantsGUI {
 	public final static String TEXT_ABOUT_ = "Terminal Simulator. \nCreado por Andrés Felipe Flórez Caro"
 			+ "\ncon la colaboración de:  Ing. Alexander Castro Romero. \nIngeniería de Sistemas y Computación.\n"
 			+ "UPTC.  \n2018";
-
 	public final static String NAME_TICKET_O = "Nombre de la taquilla";
 	public final static String TICKETS_SOLD = "Tiquetes vendidos";
 	public final static String TOTAL_INCOMES = "Total de ingresos";
+	public static final String TEXT_CONCURRENCY = "Concurrencia";
 
 }

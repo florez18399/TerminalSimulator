@@ -1,9 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import models.Terminal;
 
@@ -15,6 +14,7 @@ public class JPanelMain extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JPanelControl panelControl;
 	private JPanelDrawTerminal drawTerminal;
+	private JTableReport report;
 
 	public JPanelMain(Terminal terminal) {
 		init(terminal);
@@ -24,6 +24,7 @@ public class JPanelMain extends JPanel {
 		setLayout(new BorderLayout());
 		addPanelControl();
 		addPanelDraw(terminal);
+		report = new JTableReport(terminal);
 		setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
 	}
 
@@ -35,6 +36,12 @@ public class JPanelMain extends JPanel {
 	private void addPanelControl() {
 		panelControl = new JPanelControl();
 		add(panelControl, BorderLayout.NORTH);
+	}
+
+	public void showReport() {
+		report.fillJTable();
+		JScrollPane pane = new JScrollPane(report);
+		add(pane, BorderLayout.CENTER);
 	}
 
 }

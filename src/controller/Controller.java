@@ -55,7 +55,8 @@ public class Controller implements ActionListener {
 	}
 
 	private void generateReport() {
-
+		stopSimulation();
+		frameMain.showReport();
 	}
 
 	private void initSimulation() {
