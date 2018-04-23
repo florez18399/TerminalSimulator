@@ -5,3 +5,4 @@ Duitama/20/2000
 Bucaramanga/250/8000
 Medellín/845/20000
 Cúcuta/900/15000
+Cartagena/3000/100000
