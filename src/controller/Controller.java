@@ -37,6 +37,7 @@ public class Controller implements ActionListener {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		createTimers();
 	}
 
 	@Override
@@ -79,6 +80,14 @@ public class Controller implements ActionListener {
 	}
 
 	private void initSimulation() {
+		timerTerminal.start();
+		timerPersons.start();
+		timerTicketOffice.start();
+		timerBuses.start();
+		frameMain.showSimulator();
+	}
+
+	private void createTimers() {
 		concurrence = frameMain.getConcurrence();
 		speedSimulation = frameMain.getSpeedSimulation() + 1;
 		System.out.println(speedSimulation);
@@ -92,7 +101,6 @@ public class Controller implements ActionListener {
 			}
 
 		});
-		timerTerminal.start();
 		startMovePersons();
 		startOperationLockers();
 	}
@@ -115,7 +123,6 @@ public class Controller implements ActionListener {
 				frameMain.repaint();
 			}
 		});
-		timerPersons.start();
 	}
 
 	private void startOfTerminal() {
@@ -135,7 +142,6 @@ public class Controller implements ActionListener {
 						verifyConcurrence();
 					}
 				});
-		timerTicketOffice.start();
 		startOperationBuses();
 	}
 
@@ -155,7 +161,6 @@ public class Controller implements ActionListener {
 				frameMain.repaint();
 			}
 		});
-		timerBuses.start();
 	}
 
 	private void stopSimulation() {

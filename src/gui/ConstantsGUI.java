@@ -27,7 +27,7 @@ public class ConstantsGUI {
 	public static final Dimension DIMENSION_SLIDER = new Dimension(115, 50);
 	public final static Dimension DIMENSION_DIALOG_ABOUT = new Dimension(530, 275);
 	public final static Dimension DIMENSION_DIALOG_TITLE = new Dimension(480, 50);
-	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(340, 150);
+	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(340, 180);
 	public static final Dimension DIMENSION_IMAGE_ABOUT = new Dimension(128, 128);
 	public static final Dimension DIMENSION_DIALOG_SPLASH = new Dimension(400, 400);
 	public final static Color COLOR_BACK_APP = Color.decode("#736699");
@@ -35,7 +35,7 @@ public class ConstantsGUI {
 	public final static String TEXT_SIMULATION = "Simulación";
 	public final static String TEXT_CONFIGURATION = "Configuración";
 	public final static String TEXT_ABOUT_ = "Terminal Simulator. \nCreado por Andrés Felipe Flórez Caro"
-			+ "\ncon la colaboración de:  Ing. Alexander Castro Romero. \nIngeniería de Sistemas y Computación.\n"
+			+ "\ncon la colaboración de:  Ing. Alexander Castro Romero - \n     Idea: Ángel Nicolás Méndez\n      Fabián Nicolás Ramos \nIngeniería de Sistemas y Computación.\n"
 			+ "UPTC.  \n2018";
 	public final static String NAME_TICKET_O = "Nombre de la taquilla";
 	public final static String TICKETS_SOLD = "Tiquetes vendidos";
