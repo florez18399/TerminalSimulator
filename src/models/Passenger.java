@@ -2,7 +2,6 @@ package models;
 
 public class Passenger {
 	private String name;
-	private int id;
 	private Destiny destiny;
 	private Position position;
 	private Position positionTickets;
@@ -63,10 +62,6 @@ public class Passenger {
 
 	public Destiny getDestiny() {
 		return destiny;
-	}
-
-	public int getId() {
-		return id;
 	}
 
 }

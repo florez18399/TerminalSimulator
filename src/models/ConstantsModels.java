@@ -15,4 +15,5 @@ public class ConstantsModels {
 	public final static int DIVISOR_TIMER_BUSES = 120;
 	public final static int DIVISOR_TIMER_PERSONS = 10;
 	public final static int DIVISOR_TIMER_TICKETS = 350;
+	public static final String NAME_TERMINAL = "Terminal de Paipa";
 }

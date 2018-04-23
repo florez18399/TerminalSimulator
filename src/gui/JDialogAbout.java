@@ -31,13 +31,11 @@ public class JDialogAbout extends JDialog {
 		labelTitle.setPreferredSize(ConstantsGUI.DIMENSION_DIALOG_TITLE);
 		labelTitle.setForeground(Color.decode("#ff3333"));
 		add(labelTitle);
-
 		JButton buttonImage = new JButton(new ImageIcon(getClass().getResource(ConstantsGUI.ICON_APP_PATH2)));
 		buttonImage.setContentAreaFilled(false);
 		buttonImage.setBorderPainted(false);
 		buttonImage.setPreferredSize(ConstantsGUI.DIMENSION_IMAGE_ABOUT);
 		add(buttonImage);
-
 		JTextArea area = new JTextArea(ConstantsGUI.TEXT_ABOUT_);
 		area.setOpaque(false);
 		area.setFont(ConstantsGUI.FONT_TITLES);
@@ -45,7 +43,6 @@ public class JDialogAbout extends JDialog {
 		area.setEditable(false);
 		area.setBorder(null);
 		add(area);
-
 	}
 
 }

@@ -30,7 +30,7 @@ public class Controller implements ActionListener {
 	}
 
 	public void initComponents() {
-		terminal = new Terminal("Terminal de Paipa");
+		terminal = new Terminal(ConstantsModels.NAME_TERMINAL);
 		frameMain = new JFrameMain(terminal);
 		try {
 			frameMain.showSplash();

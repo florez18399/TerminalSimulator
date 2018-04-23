@@ -18,7 +18,6 @@ public class FileManager {
 
 	public FileManager(String nameFile, OpenForm openForm) {
 		file = new File(nameFile);
-		System.out.println(file);
 		this.openForm = openForm;
 	}
 

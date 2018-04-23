@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import models.Bus;
@@ -38,9 +37,9 @@ public class JPanelDrawTerminal extends JPanel {
 
 	private void initImages() {
 		imageTicketOffice = new ImageIcon(getClass().getResource(ConstantsGUI.ICON_TICKET_OFFICE2_PATH)).getImage();
-		imagePassenger = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ICON_PERSON2_PATH));
-		imageEntry = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ICON_ENTRY_PATH));
-		imageRoad = Toolkit.getDefaultToolkit().getImage(getClass().getResource(ConstantsGUI.ROAD2_IMAGE_PATH));
+		imagePassenger = new ImageIcon(getClass().getResource(ConstantsGUI.ICON_PERSON2_PATH)).getImage();
+		imageEntry = new ImageIcon(getClass().getResource(ConstantsGUI.ICON_ENTRY_PATH)).getImage();
+		imageRoad = new ImageIcon(getClass().getResource(ConstantsGUI.ROAD2_IMAGE_PATH)).getImage();
 	}
 
 	@Override
@@ -117,8 +116,7 @@ public class JPanelDrawTerminal extends JPanel {
 	}
 
 	private void drawBus(Bus bus, Graphics graphics) {
-		graphics.drawImage(
-				Toolkit.getDefaultToolkit().getImage(getClass().getResource(bus.getTypeBus().getPathIconBus())),
+		graphics.drawImage(new ImageIcon(getClass().getResource(bus.getTypeBus().getPathIconBus())).getImage(),
 				bus.getPosition().getX(), bus.getPosition().getY(), bus.getTypeBus().getWidth(),
 				bus.getTypeBus().getLength(), this);
 		graphics.setColor(Color.WHITE);
