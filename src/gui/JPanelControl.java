@@ -21,7 +21,6 @@ public class JPanelControl extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JComboBox<String> boxConcurrency;
-	private int max;
 	private JSlider slider;
 
 	public JPanelControl() {
@@ -50,6 +49,7 @@ public class JPanelControl extends JPanel {
 		slider.setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
 		slider.setPaintLabels(true);
 		slider.setForeground(Color.WHITE);
+		slider.setToolTipText(ConstantsGUI.TOOLTIP_SLIDER);
 		add(slider);
 	}
 
@@ -63,8 +63,9 @@ public class JPanelControl extends JPanel {
 			boxConcurrency.addItem(Concurrence.values()[i].getDescription());
 		}
 		boxConcurrency.setFont(ConstantsGUI.FONT_TITLES);
-		boxConcurrency.setForeground(Color.BLACK);
+		boxConcurrency.setForeground(Color.WHITE);
 		boxConcurrency.setPreferredSize(ConstantsGUI.DIMENSION_COMBO_CONC);
+		boxConcurrency.setBackground(ConstantsGUI.COLOR_BACK_APP);
 		add(boxConcurrency);
 	}
 
@@ -72,14 +73,19 @@ public class JPanelControl extends JPanel {
 		JButton button = new JButton(commands.getTitle());
 		button.setToolTipText(commands.getDescription());
 		button.setIcon(new ImageIcon(getClass().getResource(commands.getPathIcon())));
-		button.setBackground(Color.decode("#FFF8E7"));
+		button.setBackground(ConstantsGUI.COLOR_BACK_APP);
 		button.setBorderPainted(false);
 		button.setActionCommand(commands.getCommand());
 		button.addActionListener(Controller.getInstance());
+		button.setForeground(Color.WHITE);
 		return button;
 	}
 
 	public Concurrence getConcurrenceChoosen() {
 		return Concurrence.valueOf((String) boxConcurrency.getSelectedItem());
+	}
+
+	public int getSpeedSimulation() {
+		return slider.getValue();
 	}
 }

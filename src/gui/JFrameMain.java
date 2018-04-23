@@ -19,6 +19,7 @@ public class JFrameMain extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanelMain panelMain;
 	private JDialogAbout dialogAbout;
+	private JDialogSplash splash;
 
 	public JFrameMain(Terminal terminal) {
 		init(terminal);
@@ -32,8 +33,8 @@ public class JFrameMain extends JFrame {
 		setIconImage(new ImageIcon(getClass().getResource(ConstantsGUI.ICON_APP_PATH)).getImage());
 		panelMain = new JPanelMain(terminal);
 		dialogAbout = new JDialogAbout(this);
+		splash = new JDialogSplash(this);
 		add(panelMain);
-		setVisible(true);
 	}
 
 	private void initJMenuBar() {
@@ -61,6 +62,11 @@ public class JFrameMain extends JFrame {
 		dialogAbout.setVisible(true);
 	}
 
+	public void showSplash() throws InterruptedException {
+		splash.showMe();
+		setVisible(true);
+	}
+
 	public void showReport() {
 		panelMain.showReport();
 		panelMain.revalidate();
@@ -74,8 +80,12 @@ public class JFrameMain extends JFrame {
 		panelMain.showSimulator();
 		panelMain.revalidate();
 	}
-	
+
 	public void setTerminal(Terminal terminal) {
 		panelMain.setTerminal(terminal);
+	}
+
+	public int getSpeedSimulation() {
+		return panelMain.getSpeedSimulation();
 	}
 }

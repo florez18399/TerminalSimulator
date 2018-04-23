@@ -17,6 +17,7 @@ public class Controller implements ActionListener {
 	private Timer timerBuses;
 	private Timer timerPersons;
 	private Concurrence concurrence;
+	private int speedSimulation;
 
 	private Controller() {
 
@@ -31,6 +32,11 @@ public class Controller implements ActionListener {
 	public void initComponents() {
 		terminal = new Terminal("Terminal de Paipa");
 		frameMain = new JFrameMain(terminal);
+		try {
+			frameMain.showSplash();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -74,21 +80,34 @@ public class Controller implements ActionListener {
 
 	private void initSimulation() {
 		concurrence = frameMain.getConcurrence();
+		speedSimulation = frameMain.getSpeedSimulation() + 1;
+		System.out.println(speedSimulation);
 		frameMain.showSimulator();
 		timerTerminal = new Timer(concurrence.getTimeCreation(), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				startOfTerminal();
+				verifyTimers();
 			}
+
 		});
 		timerTerminal.start();
 		startMovePersons();
 		startOperationLockers();
 	}
 
+	private void verifyTimers() {
+		if (frameMain.getSpeedSimulation() != speedSimulation) {
+			speedSimulation = frameMain.getSpeedSimulation() + 1;
+			timerBuses.setDelay(ConstantsModels.DIVISOR_TIMER_BUSES * 50 / speedSimulation);
+			timerPersons.setDelay(ConstantsModels.DIVISOR_TIMER_PERSONS * 50 / speedSimulation);
+			timerTicketOffice.setDelay(ConstantsModels.DIVISOR_TIMER_TICKETS * 50 / speedSimulation);
+		}
+	}
+
 	private void startMovePersons() {
-		timerPersons = new Timer(10, new ActionListener() {
+		timerPersons = new Timer(ConstantsModels.DIVISOR_TIMER_PERSONS * 50 / speedSimulation, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -105,21 +124,30 @@ public class Controller implements ActionListener {
 	}
 
 	private void startOperationLockers() {
-		timerTicketOffice = new Timer(ConstantsModels.SPEED_TICKER_OFFICE, new ActionListener() {
+		timerTicketOffice = new Timer(ConstantsModels.DIVISOR_TIMER_TICKETS * 50 / speedSimulation,
+				new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				terminal.atendAllTickets();
-				terminal.verifyBusesTickets();
-				frameMain.repaint();
-			}
-		});
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						terminal.atendAllTickets();
+						terminal.verifyBusesTickets();
+						frameMain.repaint();
+						verifyConcurrence();
+					}
+				});
 		timerTicketOffice.start();
 		startOperationBuses();
 	}
 
+	private void verifyConcurrence() {
+		if (!concurrence.equals(frameMain.getConcurrence())) {
+			concurrence = frameMain.getConcurrence();
+			timerTerminal.setDelay(concurrence.getTimeCreation());
+		}
+	}
+
 	private void startOperationBuses() {
-		timerBuses = new Timer(150, new ActionListener() {
+		timerBuses = new Timer(ConstantsModels.DIVISOR_TIMER_BUSES * 50 / speedSimulation, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent event) {

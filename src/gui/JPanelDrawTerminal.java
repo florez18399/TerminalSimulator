@@ -123,7 +123,7 @@ public class JPanelDrawTerminal extends JPanel {
 				bus.getTypeBus().getLength(), this);
 		graphics.setColor(Color.WHITE);
 		graphics.setFont(ConstantsGUI.FONT_BUS);
-		graphics.drawString("Pasajeros: " + bus.getTotalPassengers(), bus.getPosition().getX(),
+		graphics.drawString(ConstantsGUI.TEXT_PASSENGERS + bus.getTotalPassengers(), bus.getPosition().getX(),
 				bus.getPosition().getY() + bus.getTypeBus().getLength() / 2 + 10);
 	}
 

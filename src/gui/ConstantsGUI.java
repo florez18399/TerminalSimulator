@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 public class ConstantsGUI {
-	public final static String TITLE_APP = "TerminalSimulator";
+	public final static String TITLE_APP = "Terminal Simulator";
 	public final static String ICON_APP_PATH = "/images/iconApp.png";
 	public final static String ICON_APP_PATH2 = "/images/iconApp2.png";
 	public final static int SIZE_TICKET_OFFICE = 200;
@@ -21,15 +21,16 @@ public class ConstantsGUI {
 	public final static String ROAD2_IMAGE_PATH = "/images/road2.jpg";
 	public final static Font FONT_TITLES = new Font("Impact", Font.PLAIN, 15);
 	public final static Font FONT_TITLES2 = new Font("Impact", Font.PLAIN, 35);
-	public final static Font FONT_BUS = new Font("Century", Font.PLAIN, 10);
-	public final static Font FONT_REPORT = new Font("Century", Font.PLAIN, 18);
+	public final static Font FONT_BUS = new Font("Century", Font.PLAIN, 13);
+	public final static Font FONT_REPORT = new Font("Century", Font.PLAIN, 20);
 	public static final Dimension DIMENSION_COMBO_CONC = new Dimension(115, 50);
 	public static final Dimension DIMENSION_SLIDER = new Dimension(115, 50);
 	public final static Dimension DIMENSION_DIALOG_ABOUT = new Dimension(530, 275);
 	public final static Dimension DIMENSION_DIALOG_TITLE = new Dimension(480, 50);
 	public static final Dimension DIMENSION_TEXT_ABOUT = new Dimension(340, 150);
 	public static final Dimension DIMENSION_IMAGE_ABOUT = new Dimension(128, 128);
-	public final static Color COLOR_BACK_APP = Color.decode("#FFF8E7");
+	public static final Dimension DIMENSION_DIALOG_SPLASH = new Dimension(400, 400);
+	public final static Color COLOR_BACK_APP = Color.decode("#736699");
 	public static final Color COLOR_BACK_TERMINAL = Color.DARK_GRAY;
 	public final static String TEXT_SIMULATION = "Simulación";
 	public final static String TEXT_CONFIGURATION = "Configuración";
@@ -42,4 +43,6 @@ public class ConstantsGUI {
 	public static final String TEXT_CONCURRENCY = "Concurrencia: ";
 	public static final String BUSES_DISPATCHED = "Buses despachados";
 	public static final String TEXT_SPEED = "<html><br>Velocidad de </br><br>simulación: </br></html>";
+	public static final String TOOLTIP_SLIDER = "Desliza para cambiar la velocidad de simulación";
+	public static final String TEXT_PASSENGERS = "Pasajeros : ";
 }

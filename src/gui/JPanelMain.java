@@ -64,4 +64,8 @@ public class JPanelMain extends JPanel {
 		report.setTerminal(terminal);
 	}
 
+	public int getSpeedSimulation() {
+		return panelControl.getSpeedSimulation();
+	}
+
 }
