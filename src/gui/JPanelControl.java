@@ -48,6 +48,8 @@ public class JPanelControl extends JPanel {
 		slider.setPreferredSize(ConstantsGUI.DIMENSION_SLIDER);
 		slider.setPaintTicks(true);
 		slider.setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
+		slider.setPaintLabels(true);
+		slider.setForeground(Color.WHITE);
 		add(slider);
 	}
 
