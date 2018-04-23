@@ -1,8 +1,8 @@
 package models;
 
 public enum TypeBus {
-	MICROBUS(10, "/images/busSilver.png", 80, 40, 50), MINIBUS(18, "/images/busBlue.png", 100, 40, 60), MIDIBUS(25,
-			"/images/busRed.png", 110, 45, 65), AUTOBUS(40, "/images/busYellow.png", 140, 50, 70);
+	MICROBUS(10, "/images/busSilver.png", 80, 30, 45), MINIBUS(18, "/images/busBlue.png", 100, 40, 55), MIDIBUS(25,
+			"/images/busRed.png", 110, 45, 68), AUTOBUS(40, "/images/busYellow.png", 140, 50, 80);
 
 	private int passengerCapacity;
 	private String pathIconBus;

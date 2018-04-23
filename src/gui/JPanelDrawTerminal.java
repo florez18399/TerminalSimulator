@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -22,7 +21,6 @@ public class JPanelDrawTerminal extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Terminal terminal;
-
 	private Image imageTicketOffice;
 	private Image imagePassenger;
 	private Image imageEntry;
@@ -129,8 +127,8 @@ public class JPanelDrawTerminal extends JPanel {
 				bus.getPosition().getY() + bus.getTypeBus().getLength() / 2 + 10);
 	}
 
-	private Image getScaledImage(String pathImage, int width, int height) {
-		ImageIcon imageIcon = new ImageIcon(getClass().getResource(pathImage));
-		return imageIcon.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
+	public void setTerminal(Terminal terminal) {
+		this.terminal = terminal;
+		repaint();
 	}
 }

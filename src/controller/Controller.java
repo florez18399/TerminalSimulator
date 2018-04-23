@@ -16,6 +16,7 @@ public class Controller implements ActionListener {
 	private Timer timerTicketOffice;
 	private Timer timerBuses;
 	private Timer timerPersons;
+	private Concurrence concurrence;
 
 	private Controller() {
 
@@ -49,9 +50,21 @@ public class Controller implements ActionListener {
 		case SHOW_ABOUT:
 			frameMain.showDialogAbout();
 			break;
+
+		case RESET_SIMULATION:
+			resetSimulation();
+			break;
 		default:
 			break;
 		}
+	}
+
+	private void resetSimulation() {
+		stopSimulation();
+		terminal = new Terminal("Terminal de Paipa");
+		frameMain.setTerminal(terminal);
+		frameMain.repaint();
+		initSimulation();
 	}
 
 	private void generateReport() {
@@ -60,8 +73,9 @@ public class Controller implements ActionListener {
 	}
 
 	private void initSimulation() {
-		terminal.setConcurrence(Concurrence.HIGH);
-		timerTerminal = new Timer(terminal.getConcurrence().getTimeCreation(), new ActionListener() {
+		concurrence = frameMain.getConcurrence();
+		frameMain.showSimulator();
+		timerTerminal = new Timer(concurrence.getTimeCreation(), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {

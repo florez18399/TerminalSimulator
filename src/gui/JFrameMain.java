@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 
 import controller.Commands;
 import controller.Controller;
+import models.Concurrence;
 import models.Terminal;
 
 public class JFrameMain extends JFrame {
@@ -63,5 +64,18 @@ public class JFrameMain extends JFrame {
 	public void showReport() {
 		panelMain.showReport();
 		panelMain.revalidate();
+	}
+
+	public Concurrence getConcurrence() {
+		return panelMain.getConcurrence();
+	}
+
+	public void showSimulator() {
+		panelMain.showSimulator();
+		panelMain.revalidate();
+	}
+	
+	public void setTerminal(Terminal terminal) {
+		panelMain.setTerminal(terminal);
 	}
 }

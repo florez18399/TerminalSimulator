@@ -10,7 +10,6 @@ public class Terminal {
 	private MyLinkedList<TicketOffice> listTicketOffice;
 	private MyQueue<Bus> queueTotalBuses;
 	private FilesTerminal filesTerminal;
-	private Concurrence concurrence;
 	private MyLinkedList<Passenger> incoming;
 	private MyLinkedList<Bus> dispatched;
 	private Position position;
@@ -59,6 +58,7 @@ public class Terminal {
 			if (ticketOfficeActual.getInfo().getActualBus().isFull()) {
 				dispatched.addNode(new Node<Bus>(ticketOfficeActual.getInfo().getActualBus()));
 				ticketOfficeActual.getInfo().setActualBus(createBusRandom());
+				ticketOfficeActual.getInfo().setBusesDispatched(ticketOfficeActual.getInfo().getBusesDispatched() + 1);
 			}
 			ticketOfficeActual = ticketOfficeActual.getNextNode();
 		}
@@ -210,14 +210,6 @@ public class Terminal {
 
 	public MyQueue<Bus> getQueueTotalBuses() {
 		return queueTotalBuses;
-	}
-
-	public Concurrence getConcurrence() {
-		return concurrence;
-	}
-
-	public void setConcurrence(Concurrence concurrence) {
-		this.concurrence = concurrence;
 	}
 
 	public MyLinkedList<Bus> getDispatched() {

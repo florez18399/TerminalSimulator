@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 
 import controller.Commands;
 import controller.Controller;
@@ -19,6 +20,9 @@ public class JPanelControl extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private JComboBox<String> boxConcurrency;
+	private int max;
+	private JSlider slider;
 
 	public JPanelControl() {
 		init();
@@ -26,15 +30,33 @@ public class JPanelControl extends JPanel {
 
 	private void init() {
 		setLayout(new FlowLayout());
+		setOpaque(false);
+		createJSliderSpeed();
 		createJComboBoxConcurrency();
 		add(createButton(Commands.INIT_SIMULATION));
 		add(createButton(Commands.STOP_SIMULATION));
 		add(createButton(Commands.GENERATE_REPORT));
+		add(createButton(Commands.RESET_SIMULATION));
+	}
+
+	private void createJSliderSpeed() {
+		JLabel label = new JLabel(ConstantsGUI.TEXT_SPEED);
+		label.setFont(ConstantsGUI.FONT_TITLES);
+		label.setForeground(Color.WHITE);
+		add(label);
+		slider = new JSlider(0, 100, 50);
+		slider.setPreferredSize(ConstantsGUI.DIMENSION_SLIDER);
+		slider.setPaintTicks(true);
+		slider.setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
+		add(slider);
 	}
 
 	private void createJComboBoxConcurrency() {
 		JLabel label = new JLabel(ConstantsGUI.TEXT_CONCURRENCY);
-		JComboBox<String> boxConcurrency = new JComboBox<String>();
+		label.setFont(ConstantsGUI.FONT_TITLES);
+		label.setForeground(Color.WHITE);
+		add(label);
+		boxConcurrency = new JComboBox<String>();
 		for (int i = 0; i < Concurrence.values().length; i++) {
 			boxConcurrency.addItem(Concurrence.values()[i].getDescription());
 		}
@@ -53,5 +75,9 @@ public class JPanelControl extends JPanel {
 		button.setActionCommand(commands.getCommand());
 		button.addActionListener(Controller.getInstance());
 		return button;
+	}
+
+	public Concurrence getConcurrenceChoosen() {
+		return Concurrence.valueOf((String) boxConcurrency.getSelectedItem());
 	}
 }

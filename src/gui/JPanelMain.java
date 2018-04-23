@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import models.Concurrence;
 import models.Terminal;
 
 public class JPanelMain extends JPanel {
@@ -15,6 +16,7 @@ public class JPanelMain extends JPanel {
 	private JPanelControl panelControl;
 	private JPanelDrawTerminal drawTerminal;
 	private JTableReport report;
+	private JScrollPane pane;
 
 	public JPanelMain(Terminal terminal) {
 		init(terminal);
@@ -25,6 +27,7 @@ public class JPanelMain extends JPanel {
 		addPanelControl();
 		addPanelDraw(terminal);
 		report = new JTableReport(terminal);
+		pane = new JScrollPane(report);
 		setBackground(ConstantsGUI.COLOR_BACK_TERMINAL);
 	}
 
@@ -38,10 +41,27 @@ public class JPanelMain extends JPanel {
 		add(panelControl, BorderLayout.NORTH);
 	}
 
+	public void showSimulator() {
+		remove(pane);
+		add(drawTerminal, BorderLayout.CENTER);
+		revalidate();
+		repaint();
+	}
+
 	public void showReport() {
+		remove(drawTerminal);
 		report.fillJTable();
-		JScrollPane pane = new JScrollPane(report);
 		add(pane, BorderLayout.CENTER);
+		revalidate();
+	}
+
+	public Concurrence getConcurrence() {
+		return panelControl.getConcurrenceChoosen();
+	}
+
+	public void setTerminal(Terminal terminal) {
+		drawTerminal.setTerminal(terminal);
+		report.setTerminal(terminal);
 	}
 
 }

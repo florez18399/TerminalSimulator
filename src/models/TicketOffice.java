@@ -7,6 +7,7 @@ public class TicketOffice {
 	private Bus actualBus;
 	private Position positionOffice;
 	private int sizeTicketOffice;
+	private int busesDispatched;
 
 	public TicketOffice(Destiny destiny, Position position, int size) {
 		this.destiny = destiny;
@@ -86,6 +87,14 @@ public class TicketOffice {
 		this.actualBus = actualBus;
 		this.actualBus.setPosition(
 				new Position(positionOffice.getX(), (int) (positionOffice.getY() + sizeTicketOffice * 1.5)));
+	}
+
+	public int getBusesDispatched() {
+		return busesDispatched;
+	}
+
+	public void setBusesDispatched(int busesDispatched) {
+		this.busesDispatched = busesDispatched;
 	}
 
 }
